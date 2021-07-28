@@ -41,6 +41,8 @@ func Generate(info DBInfo) (out []GenOutInfo, m _Model) {
 		out = append(out, stt)
 	}
 
+	fmt.Println(m.pkg)
+
 	// ------end
 
 	// gen function
@@ -68,8 +70,7 @@ func (m *_Model) GetPackage() genstruct.GenPackage {
 			// if tablePrefix != "" {
 			// 	tab.Name = strings.TrimLeft(tab.Name, tablePrefix)
 			// }
-
-			sct.SetStructName(getCamelName(tab.Name)) // Big hump.大驼峰
+			sct.SetStructName(getCamelName(tab.Name) + config.Map.Suffix) // Big hump.大驼峰
 			sct.SetNotes(tab.Notes)
 			sct.AddElement(m.genTableElement(tab.Em)...) // build element.构造元素
 			sct.SetCreatTableStr(tab.SQLBuildStr)
@@ -117,6 +118,7 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 	for _, v := range cols {
 		var tmp genstruct.GenElement
 		var isPK bool
+
 		if strings.EqualFold(v.Type, "gorm.Model") { // gorm model
 			tmp.SetType(v.Type) //
 		} else {
@@ -187,6 +189,7 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 			fklist := m.genForeignKey(v)
 			el = append(el, fklist...)
 		}
+
 		// -----------end
 	}
 
@@ -207,8 +210,8 @@ func (m *_Model) genForeignKey(col ColumnsInfo) (fklist []genstruct.GenElement) 
 				tmp.SetName(getCamelName(v.TableName) + "List")
 				tmp.SetType("[]" + getCamelName(v.TableName))
 			} else {
-				tmp.SetName(getCamelName(v.TableName))
-				tmp.SetType(getCamelName(v.TableName))
+				tmp.SetName(getCamelName(v.TableName + config.Map.Suffix))
+				tmp.SetType(getCamelName(v.TableName + config.Map.Suffix))
 			}
 
 			tmp.AddTag(_tagGorm, "joinForeignKey:"+col.Name) // association_foreignkey

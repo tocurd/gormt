@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/tocurd/gormt/data/view/genstruct"
 	"github.com/xxjwxc/public/mylog"
 
 	"github.com/tocurd/gormt/data/dlg"
@@ -18,15 +19,16 @@ import (
 )
 
 // Execute exe the cmd
-func Execute() {
+func Execute() (pack genstruct.GenPackage) {
 	if config.GetIsGUI() {
 		dlg.WinMain()
 	} else {
-		showCmd()
+		pack = showCmd()
 	}
+	return
 }
 
-func showCmd() {
+func showCmd() (pack genstruct.GenPackage) {
 	// var tt oauth_db.UserInfoTbl
 	// tt.Nickname = "ticket_001"
 	// orm.Where("nickname = ?", "ticket_001").Find(&tt)
@@ -51,7 +53,8 @@ func showCmd() {
 	// out, _ := json.Marshal(pkg)
 	// tools.WriteFile("test.txt", []string{string(out)}, true)
 
-	list, _ := model.Generate(pkg)
+	list, model := model.Generate(pkg)
+	pack = model.GetPackage()
 
 	for _, v := range list {
 		path := config.GetOutDir() + "/" + v.FileName
@@ -65,4 +68,6 @@ func showCmd() {
 		cmd, _ = exec.Command("gofmt", "-l", "-w", path).Output()
 		mylog.Info(string(cmd))
 	}
+
+	return
 }

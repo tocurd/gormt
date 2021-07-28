@@ -21,9 +21,9 @@ var Map = Config{
 	Database: DBInfo{
 		Host:     "127.0.0.1",
 		Port:     3306,
-		Username: "root1",
-		Password: "root1",
-		Database: "test1",
+		Username: "root",
+		Password: "root",
+		Database: "tianshu",
 	},
 	OutDir:           "./model",
 	URLTag:           "json",
@@ -42,8 +42,9 @@ var Map = Config{
 	SelfTypeDef:          make(map[string]string),
 	WebTagType:           0,
 	TableNames:           "",
-	IsColumnName:         true,
+	IsColumnName:         false,
 	IsOutFileByTableName: false,
+	Suffix:               "Model",
 }
 
 var configPath string
