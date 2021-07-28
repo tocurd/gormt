@@ -7,8 +7,8 @@ import (
 
 	"github.com/xxjwxc/public/mylog"
 
-	"github.com/xxjwxc/gormt/data/config"
-	"github.com/xxjwxc/gormt/data/view/model"
+	"github.com/tocurd/gormt/data/config"
+	"github.com/tocurd/gormt/data/view/model"
 	"github.com/xxjwxc/public/tools"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

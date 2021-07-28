@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/xxjwxc/gormt/data/config"
-	"github.com/xxjwxc/gormt/data/view/model"
+	"github.com/tocurd/gormt/data/config"
+	"github.com/tocurd/gormt/data/view/model"
 	"github.com/xxjwxc/public/mysqldb"
 	"github.com/xxjwxc/public/tools"
 )

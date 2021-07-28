@@ -3,7 +3,7 @@ go:
   - 1.13.x
   - master
   
-go_import_path: github.com/xxjwxc/gormt
+go_import_path: github.com/tocurd/gormt
 
 before_install:
   - go get -t -v ./...

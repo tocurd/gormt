@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/xxjwxc/gormt/data/view/model"
+	"github.com/tocurd/gormt/data/view/model"
 )
 
 func TestMain(t *testing.T) {

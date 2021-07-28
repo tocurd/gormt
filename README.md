@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/xxjwxc/gormt.svg?branch=master)](https://travis-ci.org/xxjwxc/gormt)
-[![Go Report Card](https://goreportcard.com/badge/github.com/xxjwxc/gormt)](https://goreportcard.com/report/github.com/xxjwxc/gormt)
-[![GoDoc](https://godoc.org/github.com/xxjwxc/gormt?status.svg)](https://godoc.org/github.com/xxjwxc/gormt)
+[![Go Report Card](https://goreportcard.com/badge/github.com/tocurd/gormt)](https://goreportcard.com/report/github.com/tocurd/gormt)
+[![GoDoc](https://godoc.org/github.com/tocurd/gormt?status.svg)](https://godoc.org/github.com/tocurd/gormt)
 [![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go) 
  
 ## [中文文档](README_zh_cn.md)
@@ -27,10 +27,10 @@
 ## install
 
 ```
-go get -u -v github.com/xxjwxc/gormt@master
+go get -u -v github.com/tocurd/gormt@master
 ```
 
-or: [Dowloading](https://github.com/xxjwxc/gormt/releases)
+or: [Dowloading](https://github.com/tocurd/gormt/releases)
 
 --------
 
@@ -112,7 +112,7 @@ Flags:
 - INDEX	Create index with or without name, same name creates composite indexes
 - UNIQUE_INDEX	Like INDEX, create unique index
 - Support foreign key related properties [Support export gorm.model>>>](doc/export.md)
-- Support function export (foreign key, association, index , unique and more)[Support export function >>>](https://github.com/xxjwxc/gormt/blob/master/data/view/genfunc/genfunc_test.go)
+- Support function export (foreign key, association, index , unique and more)[Support export function >>>](https://github.com/tocurd/gormt/blob/master/data/view/genfunc/genfunc_test.go)
 - model.Condetion{} sql link
 
 ### You can enrich data types in [def](data/view/cnf/def.go) 
@@ -182,8 +182,8 @@ func (obj *_UserAccountTblMgr) FetchByPrimaryKey(ID int) (result UserAccountTbl,
 
 ```
 
-### [more>>>](https://github.com/xxjwxc/gormt/tree/master/doc/func.md)
-### [how to use call style>>>](https://github.com/xxjwxc/gormt/blob/master/data/view/genfunc/genfunc_test.go)
+### [more>>>](https://github.com/tocurd/gormt/tree/master/doc/func.md)
+### [how to use call style>>>](https://github.com/tocurd/gormt/blob/master/data/view/genfunc/genfunc_test.go)
 
 ## 7. build
 ```
@@ -219,7 +219,7 @@ CHCP 65001
 
 ![4](/image/gormt/4.jpg)
 
-[Download](https://github.com/xxjwxc/gormt/releases/download/v0.3.8/v1.0.zip)
+[Download](https://github.com/tocurd/gormt/releases/download/v0.3.8/v1.0.zip)
 
 
 

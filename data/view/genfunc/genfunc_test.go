@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/xxjwxc/gormt/data/view/genfunc/model"
+	"github.com/tocurd/gormt/data/view/genfunc/model"
 	"github.com/xxjwxc/public/mysqldb"
 	"gorm.io/gorm"
 
@@ -13,7 +13,7 @@ import (
 )
 
 /**
-测试数据库地址:https://github.com/xxjwxc/gormt/blob/master/data/view/genfunc/model/matrix.sql
+测试数据库地址:https://github.com/tocurd/gormt/blob/master/data/view/genfunc/model/matrix.sql
 */
 
 func GetGorm(dataSourceName string) *gorm.DB {

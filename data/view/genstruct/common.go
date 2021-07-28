@@ -7,10 +7,10 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/xxjwxc/gormt/data/config"
-	"github.com/xxjwxc/gormt/data/view/cnf"
-	"github.com/xxjwxc/gormt/data/view/generate"
-	"github.com/xxjwxc/gormt/data/view/genfunc"
+	"github.com/tocurd/gormt/data/config"
+	"github.com/tocurd/gormt/data/view/cnf"
+	"github.com/tocurd/gormt/data/view/generate"
+	"github.com/tocurd/gormt/data/view/genfunc"
 )
 
 // SetName Setting element name.设置元素名字

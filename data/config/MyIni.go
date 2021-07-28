@@ -10,7 +10,7 @@ import (
 // Config custom config struct
 type Config struct {
 	CfgBase              `yaml:"base"`
-	DBInfo               DBInfo            `yaml:"db_info"`
+	Database             DBInfo            `yaml:"database"`
 	OutDir               string            `yaml:"out_dir"`
 	URLTag               string            `yaml:"url_tag"`  // url tag
 	Language             string            `yaml:"language"` // language
@@ -45,232 +45,232 @@ type DBInfo struct {
 
 // SetMysqlDbInfo Update MySQL configuration information
 func SetMysqlDbInfo(info *DBInfo) {
-	_map.DBInfo = *info
+	Map.Database = *info
 }
 
 // GetDbInfo Get configuration information .获取数据配置信息
 func GetDbInfo() DBInfo {
-	return _map.DBInfo
+	return Map.Database
 }
 
 // GetMysqlConStr Get MySQL connection string.获取mysql 连接字符串
 func GetMysqlConStr() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local&interpolateParams=True",
-		_map.DBInfo.Username,
-		_map.DBInfo.Password,
-		_map.DBInfo.Host,
-		_map.DBInfo.Port,
-		_map.DBInfo.Database,
+		Map.Database.Username,
+		Map.Database.Password,
+		Map.Database.Host,
+		Map.Database.Port,
+		Map.Database.Database,
 	)
 }
 
 // SetOutDir Setting Output Directory.设置输出目录
 func SetOutDir(outDir string) {
-	_map.OutDir = outDir
+	Map.OutDir = outDir
 }
 
 // GetOutDir Get Output Directory.获取输出目录
 func GetOutDir() string {
-	if len(_map.OutDir) == 0 {
-		_map.OutDir = "./model"
+	if len(Map.OutDir) == 0 {
+		Map.OutDir = "./model"
 	}
 
-	return _map.OutDir
+	return Map.OutDir
 }
 
 // // SetSingularTable Set Disabled Table Name Plurals.设置禁用表名复数
 // func SetSingularTable(b bool) {
-// 	_map.SingularTable = b
+// 	Map.SingularTable = b
 // }
 
 // // GetSingularTable Get Disabled Table Name Plurals.获取禁用表名复数
 // func GetSingularTable() bool {
-// 	return _map.SingularTable
+// 	return Map.SingularTable
 // }
 
 // GetSimple simple output.简单输出
 func GetSimple() bool {
-	return _map.Simple
+	return Map.Simple
 }
 
 // SetSimple simple output.简单输出
 func SetSimple(b bool) {
-	_map.Simple = b
+	Map.Simple = b
 }
 
 // GetIsWEBTag json tag.json标记
 func GetIsWEBTag() bool {
-	return _map.IsWEBTag
+	return Map.IsWEBTag
 }
 
 // SetIsWEBTag json tag.json标记
 func SetIsWEBTag(b bool) {
-	_map.IsWEBTag = b
+	Map.IsWEBTag = b
 }
 
 // GetIsWebTagPkHidden web tag是否隐藏主键
 func GetIsWebTagPkHidden() bool {
-	return _map.IsWebTagPkHidden
+	return Map.IsWebTagPkHidden
 }
 
 // GetIsForeignKey if is foreign key
 func GetIsForeignKey() bool {
-	return _map.IsForeignKey
+	return Map.IsForeignKey
 }
 
 // SetForeignKey Set if is foreign key.设置是否外键关联
 func SetForeignKey(b bool) {
-	_map.IsForeignKey = b
+	Map.IsForeignKey = b
 }
 
 // SetIsOutSQL if is output sql .
 func SetIsOutSQL(b bool) {
-	_map.IsOutSQL = b
+	Map.IsOutSQL = b
 }
 
 // GetIsOutSQL if is output sql .
 func GetIsOutSQL() bool {
-	return _map.IsOutSQL
+	return Map.IsOutSQL
 }
 
 // GetIsOutFunc if is output func .
 func GetIsOutFunc() bool {
-	return _map.IsOutFunc
+	return Map.IsOutFunc
 }
 
 // SetIsOutFunc if is output func .
 func SetIsOutFunc(b bool) {
-	_map.IsOutFunc = b
+	Map.IsOutFunc = b
 }
 
 // GetIsGUI if is gui show .
 func GetIsGUI() bool {
-	return _map.IsGUI
+	return Map.IsGUI
 }
 
 // SetIsGUI if is gui show .
 func SetIsGUI(b bool) {
-	_map.IsGUI = b
+	Map.IsGUI = b
 }
 
 // GetIsTableName if is table name .
 func GetIsTableName() bool {
-	return _map.IsTableName
+	return Map.IsTableName
 }
 
 // SetIsTableName if is table name .
 func SetIsTableName(b bool) {
-	_map.IsTableName = b
+	Map.IsTableName = b
 }
 
 // GetURLTag get url tag.
 func GetURLTag() string {
-	if _map.URLTag != "json" && _map.URLTag != "url" {
-		_map.URLTag = "json"
+	if Map.URLTag != "json" && Map.URLTag != "url" {
+		Map.URLTag = "json"
 	}
 
-	return _map.URLTag
+	return Map.URLTag
 }
 
 // SetURLTag set url tag.
 func SetURLTag(s string) {
-	_map.URLTag = s
+	Map.URLTag = s
 }
 
 // GetLG get language tag.
 func GetLG() string {
-	if _map.Language != "English" && _map.Language != "中 文" {
+	if Map.Language != "English" && Map.Language != "中 文" {
 		if tools.GetLocalSystemLang(true) == "en" {
-			_map.Language = "English"
+			Map.Language = "English"
 		} else {
-			_map.Language = "中 文"
+			Map.Language = "中 文"
 		}
 	}
 
-	return _map.Language
+	return Map.Language
 }
 
 // SetLG set url tag.
 func SetLG(s string) {
-	_map.Language = s
+	Map.Language = s
 }
 
 // GetDBTag get database tag.
 func GetDBTag() string {
-	if _map.DbTag != "gorm" && _map.DbTag != "db" {
-		_map.DbTag = "gorm"
+	if Map.DbTag != "gorm" && Map.DbTag != "db" {
+		Map.DbTag = "gorm"
 	}
 
-	return _map.DbTag
+	return Map.DbTag
 }
 
 // SetDBTag get database tag.
 func SetDBTag(s string) {
-	_map.DbTag = s
+	Map.DbTag = s
 }
 
 // SetIsNullToPoint if with null to porint in struct
 func SetIsNullToPoint(b bool) {
-	_map.IsNullToPoint = b
+	Map.IsNullToPoint = b
 }
 
 // GetIsNullToPoint get if with null to porint in sturct
 func GetIsNullToPoint() bool {
-	return _map.IsNullToPoint
+	return Map.IsNullToPoint
 }
 
 // SetTablePrefix set table prefix
 func SetTablePrefix(t string) {
-	_map.TablePrefix = t
+	Map.TablePrefix = t
 }
 
 // GetTablePrefix get table prefix
 func GetTablePrefix() string {
-	return _map.TablePrefix
+	return Map.TablePrefix
 }
 
 // SetSelfTypeDefine 设置自定义字段映射
 func SetSelfTypeDefine(data map[string]string) {
-	_map.SelfTypeDef = data
+	Map.SelfTypeDef = data
 }
 
 // GetSelfTypeDefine 获取自定义字段映射
 func GetSelfTypeDefine() map[string]string {
-	return _map.SelfTypeDef
+	return Map.SelfTypeDef
 }
 
 // SetOutFileName 设置输出文件名
 func SetOutFileName(s string) {
-	_map.OutFileName = s
+	Map.OutFileName = s
 }
 
 // GetOutFileName 获取输出文件名
 func GetOutFileName() string {
-	return _map.OutFileName
+	return Map.OutFileName
 }
 
 // SetWebTagType 设置json tag类型
 func SetWebTagType(i int) {
-	_map.WebTagType = i
+	Map.WebTagType = i
 }
 
 // GetWebTagType 获取json tag类型
 func GetWebTagType() int {
-	return _map.WebTagType
+	return Map.WebTagType
 }
 
 //GetTableNames get format tableNames by config. 获取格式化后设置的表名
 func GetTableNames() string {
 	var sb strings.Builder
-	if _map.TableNames != "" {
-		tableNames := _map.TableNames
+	if Map.TableNames != "" {
+		tableNames := Map.TableNames
 		tableNames = strings.TrimLeft(tableNames, ",")
 		tableNames = strings.TrimRight(tableNames, ",")
 		if tableNames == "" {
 			return ""
 		}
 
-		sarr := strings.Split(_map.TableNames, ",")
+		sarr := strings.Split(Map.TableNames, ",")
 		if len(sarr) == 0 {
 			fmt.Printf("tableNames is vailed, genmodel will by default global")
 			return ""
@@ -288,30 +288,30 @@ func GetTableNames() string {
 
 //GetOriginTableNames get origin tableNames. 获取原始的设置的表名
 func GetOriginTableNames() string {
-	return _map.TableNames
+	return Map.TableNames
 }
 
 //SetTableNames set tableNames. 设置生成的表名
 func SetTableNames(tableNames string) {
-	_map.TableNames = tableNames
+	Map.TableNames = tableNames
 }
 
 //GetIsColumnName get  gen columnName config . 获取生成列名的config
 func GetIsColumnName() bool {
-	return _map.IsColumnName
+	return Map.IsColumnName
 }
 
 //SetIsColumnName set gen ColumnName config. 设置生成列名的config
 func SetIsColumnName(isColumnName bool) {
-	_map.IsColumnName = isColumnName
+	Map.IsColumnName = isColumnName
 }
 
 //GetIsOutFileByTableName get  gen columnName config . 设置是否根据表名生成文件
 func GetIsOutFileByTableName() bool {
-	return _map.IsOutFileByTableName
+	return Map.IsOutFileByTableName
 }
 
 //SetIsOutFileByTableName set gen ColumnName config. 设置是否根据表名生成文件
 func SetIsOutFileByTableName(isOutFileByTableName bool) {
-	_map.IsColumnName = isOutFileByTableName
+	Map.IsColumnName = isOutFileByTableName
 }
