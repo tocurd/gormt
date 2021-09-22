@@ -16,11 +16,12 @@ import (
 var MySQLModel mysqlModel
 
 type mysqlModel struct {
+	DbInfoConfig config.DBInfo
 }
 
 // GenModel get model.DBInfo info.获取数据库相关属性
 func (m *mysqlModel) GenModel() model.DBInfo {
-	orm := mysqldb.OnInitDBOrm(config.GetMysqlConStr())
+	orm := mysqldb.OnInitDBOrm(config.GetMysqlConStr(m.DbInfoConfig))
 	defer orm.OnDestoryDB()
 
 	var dbInfo model.DBInfo
@@ -32,7 +33,7 @@ func (m *mysqlModel) GenModel() model.DBInfo {
 
 // GetDbName get database name.获取数据库名字
 func (m *mysqlModel) GetDbName() string {
-	return config.GetDbInfo().Database
+	return m.DbInfoConfig.Database
 }
 
 // GetTableNames get table name.获取格式化后指定的表名

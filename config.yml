@@ -1,8 +1,28 @@
 
 database:
-    host : 127.0.0.1 # type=1的时候，host为yml文件全路径
-    port : 3306
-    username : root
-    password : root
-    database : tianshu
-    type: 0 # 数据库类型:0:mysql , 1:sqlite , 2:mssql
+  business:
+      host: 127.0.0.1 # type=1的时候，host为yml文件全路径
+      port: 3306
+      username: root
+      password: root123
+      database: tianshu
+      type: 0 # 数据库类型:0:mysql , 1:sqlite , 2:mssql
+      level: 3 # 是否记录sql日志 0为不记录 1 info 2 err 3 wan
+      slowThreshold: 200 # 慢sql记录,超过200毫秒
+      ignoreRecordNotFoundError: true # 不记录找不到的错误
+      maxIdleConns: 12 # 用于设置连接池中空闲连接的最大数量
+      maxOpenConns: 100 # 设置打开数据库连接的最大数量
+      connMaxLifetime: 480 # 设置了连接可复用的最大时间(分钟)
+  console:
+      host: 127.0.0.1 # type=1的时候，host为yml文件全路径
+      port: 3306
+      username: root
+      password: root123
+      database: tianshu
+      type: 0 # 数据库类型:0:mysql , 1:sqlite , 2:mssql
+      level: 3 # 是否记录sql日志 0为不记录 1 info 2 err 3 wan
+      slowThreshold: 200 # 慢sql记录,超过200毫秒
+      ignoreRecordNotFoundError: true # 不记录找不到的错误
+      maxIdleConns: 12 # 用于设置连接池中空闲连接的最大数量
+      maxOpenConns: 100 # 设置打开数据库连接的最大数量
+      connMaxLifetime: 480 # 设置了连接可复用的最大时间(分钟)

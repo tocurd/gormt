@@ -17,12 +17,13 @@ import (
 var MssqlModel mssqlModel
 
 type mssqlModel struct {
+	DbInfoConfig config.DBInfo
 }
 
 // GenModel get model.DBInfo info.获取数据库相关属性
 func (m *mssqlModel) GenModel() model.DBInfo {
 	dsn := fmt.Sprintf("server=%v;database=%v;user id=%v;password=%v;port=%v;encrypt=disable",
-		config.GetDbInfo().Host, config.GetDbInfo().Database, config.GetDbInfo().Username, config.GetDbInfo().Password, config.GetDbInfo().Port)
+		m.DbInfoConfig.Host, m.DbInfoConfig.Database, m.DbInfoConfig.Username, m.DbInfoConfig.Password, m.DbInfoConfig.Port)
 	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 	if err != nil {
 		mylog.Error(err)
@@ -42,7 +43,7 @@ func (m *mssqlModel) GenModel() model.DBInfo {
 
 // GetDbName get database name.获取数据库名字
 func (m *mssqlModel) GetDbName() string {
-	return config.GetDbInfo().Database
+	return m.DbInfoConfig.Database
 }
 
 // GetTableNames get table name.获取格式化后指定的表名

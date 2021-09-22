@@ -18,11 +18,12 @@ import (
 var SQLiteModel sqliteModel
 
 type sqliteModel struct {
+	DbInfoConfig config.DBInfo
 }
 
 // GenModel get model.DBInfo info.获取数据库相关属性
 func (m *sqliteModel) GenModel() model.DBInfo {
-	db, err := gorm.Open(sqlite.Open(config.GetDbInfo().Host), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(m.DbInfoConfig.Host), &gorm.Config{})
 	if err != nil {
 		mylog.Error(err)
 		return model.DBInfo{}
@@ -41,7 +42,7 @@ func (m *sqliteModel) GenModel() model.DBInfo {
 
 // GetDbName get database name.获取数据库名字
 func (m *sqliteModel) GetDbName() string {
-	dir := config.GetDbInfo().Host
+	dir := m.DbInfoConfig.Host
 	dir = strings.Replace(dir, "\\", "/", -1)
 	if len(dir) > 0 {
 		if dir[len(dir)-1] == '/' {

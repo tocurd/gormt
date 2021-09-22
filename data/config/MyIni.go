@@ -10,7 +10,7 @@ import (
 // Config custom config struct
 type Config struct {
 	CfgBase              `yaml:"base"`
-	Database             DBInfo            `yaml:"database"`
+	Database             map[string]DBInfo `yaml:"database"`
 	OutDir               string            `yaml:"out_dir"`
 	URLTag               string            `yaml:"url_tag"`  // url tag
 	Language             string            `yaml:"language"` // language
@@ -45,23 +45,23 @@ type DBInfo struct {
 }
 
 // SetMysqlDbInfo Update MySQL configuration information
-func SetMysqlDbInfo(info *DBInfo) {
+func SetMysqlDbInfo(info *map[string]DBInfo) {
 	Map.Database = *info
 }
 
 // GetDbInfo Get configuration information .获取数据配置信息
-func GetDbInfo() DBInfo {
+func GetDbInfo() map[string]DBInfo {
 	return Map.Database
 }
 
 // GetMysqlConStr Get MySQL connection string.获取mysql 连接字符串
-func GetMysqlConStr() string {
+func GetMysqlConStr(dbInfo DBInfo) string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local&interpolateParams=True",
-		Map.Database.Username,
-		Map.Database.Password,
-		Map.Database.Host,
-		Map.Database.Port,
-		Map.Database.Database,
+		dbInfo.Username,
+		dbInfo.Password,
+		dbInfo.Host,
+		dbInfo.Port,
+		dbInfo.Database,
 	)
 }
 

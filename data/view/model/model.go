@@ -41,8 +41,6 @@ func Generate(info DBInfo) (out []GenOutInfo, m _Model) {
 		out = append(out, stt)
 	}
 
-	fmt.Println(m.pkg)
-
 	// ------end
 
 	// gen function
@@ -125,6 +123,10 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 			tmp.SetName(getCamelName(v.Name))
 			tmp.SetNotes(v.Notes)
 			tmp.SetType(getTypeName(v.Type, v.IsNull))
+
+			if v.Notes != "" {
+				tmp.AddTag(_tagGorm, fmt.Sprintf("note:%s", v.Notes))
+			}
 			// not simple output. 默认不输出gorm标签
 			if !config.GetSimple() {
 				for _, v1 := range v.Index {

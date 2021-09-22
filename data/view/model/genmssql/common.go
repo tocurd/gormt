@@ -49,8 +49,9 @@ func fixForeignKey(list []genForeignKey, columuName string, result *[]model.Fore
 }
 
 // GetModel get model interface. 获取model接口
-func GetModel() model.IModel {
+func GetModel(dbInfoConfig config.DBInfo) model.IModel {
 	//now just support mysql
+	MssqlModel.DbInfoConfig = dbInfoConfig
 	return &MssqlModel
 }
 

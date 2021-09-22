@@ -6,8 +6,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/xxjwxc/public/tools"
-
 	"github.com/tocurd/gormt/data/config"
 
 	"github.com/jroimartin/gocui"
@@ -201,49 +199,49 @@ func enterSet(g *gocui.Gui, v *gocui.View) error {
 	form = mycui.NewForm(g, "set_ui", "Sign Up", division(maxX, uiPart[0])+2, 2, 0, 0)
 
 	// add input field
-	form.AddInputField("out_dir", SLocalize("out_dir"), formPart[0], formPart[1]).SetText(config.GetOutDir()).
-		AddValidate("required input", requireValidator)
-	form.AddInputField("db_host", SLocalize("db_host"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Host).
-		AddValidate("required input", requireValidator)
-	form.AddInputField("db_port", SLocalize("db_port"), formPart[0], formPart[1]).SetText(tools.AsString(config.GetDbInfo().Port)).
-		AddValidate("required input", requireValidator)
-	form.AddInputField("db_usename", SLocalize("db_usename"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Username).
-		AddValidate("required input", requireValidator)
-	form.AddInputField("db_pwd", SLocalize("db_pwd"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Password).
-		SetMask().SetMaskKeybinding(gocui.KeyCtrlA).
-		AddValidate("required input", requireValidator)
-	form.AddInputField("db_name", SLocalize("db_name"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Database).
-		AddValidate("required input", requireValidator)
-	form.AddSelect("db_type", SLocalize("db_type"), formPart[0], formPart[2]).AddOptions(getDBTypeList()...).
-		SetSelected(GetDBTypeStr(config.GetDbInfo().Type))
-	// add select
-	form.AddSelect("is_dev", SLocalize("is_dev"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsDev())))
-	form.AddSelect("is_simple", SLocalize("is_simple"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetSimple())))
-	form.AddSelect("is_out_sql", SLocalize("is_out_sql"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsOutSQL())))
-	form.AddSelect("is_out_func", SLocalize("is_out_func"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsOutFunc())))
-	form.AddSelect("is_foreign_key", SLocalize("is_foreign_key"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsForeignKey())))
-	form.AddSelect("is_gui", SLocalize("is_gui"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsGUI())))
-	form.AddSelect("is_table_name", SLocalize("is_table_name"), formPart[0], formPart[2]).
-		AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsTableName())))
-	form.AddSelect("url_tag", SLocalize("url_tag"), formPart[0], formPart[2]).
-		AddOptions("json", "url").SetSelected(tools.AsString(config.GetURLTag()))
-	form.AddSelect("db_tag", SLocalize("db_tag"), formPart[0], formPart[2]).
-		AddOptions("gorm", "db").SetSelected(config.GetDBTag())
-	form.AddSelect("language", SLocalize("language"), formPart[0], formPart[2]).
-		AddOptions("English", "中 文").SetSelected(config.GetLG())
+	// form.AddInputField("out_dir", SLocalize("out_dir"), formPart[0], formPart[1]).SetText(config.GetOutDir()).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddInputField("db_host", SLocalize("db_host"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Host).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddInputField("db_port", SLocalize("db_port"), formPart[0], formPart[1]).SetText(tools.AsString(config.GetDbInfo().Port)).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddInputField("db_usename", SLocalize("db_usename"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Username).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddInputField("db_pwd", SLocalize("db_pwd"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Password).
+	// 	SetMask().SetMaskKeybinding(gocui.KeyCtrlA).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddInputField("db_name", SLocalize("db_name"), formPart[0], formPart[1]).SetText(config.GetDbInfo().Database).
+	// 	AddValidate("required input", requireValidator)
+	// form.AddSelect("db_type", SLocalize("db_type"), formPart[0], formPart[2]).AddOptions(getDBTypeList()...).
+	// 	SetSelected(GetDBTypeStr(config.GetDbInfo().Type))
+	// // add select
+	// form.AddSelect("is_dev", SLocalize("is_dev"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsDev())))
+	// form.AddSelect("is_simple", SLocalize("is_simple"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetSimple())))
+	// form.AddSelect("is_out_sql", SLocalize("is_out_sql"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsOutSQL())))
+	// form.AddSelect("is_out_func", SLocalize("is_out_func"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsOutFunc())))
+	// form.AddSelect("is_foreign_key", SLocalize("is_foreign_key"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsForeignKey())))
+	// form.AddSelect("is_gui", SLocalize("is_gui"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsGUI())))
+	// form.AddSelect("is_table_name", SLocalize("is_table_name"), formPart[0], formPart[2]).
+	// 	AddOptions(SLocalize("true"), SLocalize("false")).SetSelected(SLocalize(tools.AsString(config.GetIsTableName())))
+	// form.AddSelect("url_tag", SLocalize("url_tag"), formPart[0], formPart[2]).
+	// 	AddOptions("json", "url").SetSelected(tools.AsString(config.GetURLTag()))
+	// form.AddSelect("db_tag", SLocalize("db_tag"), formPart[0], formPart[2]).
+	// 	AddOptions("gorm", "db").SetSelected(config.GetDBTag())
+	// form.AddSelect("language", SLocalize("language"), formPart[0], formPart[2]).
+	// 	AddOptions("English", "中 文").SetSelected(config.GetLG())
 
-	// add button
-	form.AddButton("save", SLocalize("save"), buttonSave).AddHandler(gocui.MouseLeft, buttonSave)
-	form.AddButton("cancel", SLocalize("cancel"), buttonCancel).AddHandler(gocui.MouseLeft, buttonCancel)
-	form.AddButton("about", SLocalize("about"), about).AddHandler(gocui.MouseLeft, about)
+	// // add button
+	// form.AddButton("save", SLocalize("save"), buttonSave).AddHandler(gocui.MouseLeft, buttonSave)
+	// form.AddButton("cancel", SLocalize("cancel"), buttonCancel).AddHandler(gocui.MouseLeft, buttonCancel)
+	// form.AddButton("about", SLocalize("about"), about).AddHandler(gocui.MouseLeft, about)
 
-	form.Draw()
+	// form.Draw()
 
 	return nil
 }
@@ -288,7 +286,7 @@ func buttonSave(g *gocui.Gui, v *gocui.View) error {
 	mp = form.GetSelectedOpts()
 
 	dbInfo.Type = GetDBTypeID(mp["db_type"])
-	config.SetMysqlDbInfo(&dbInfo)
+	// config.SetMysqlDbInfo(&dbInfo)
 
 	config.SetIsDev(getBool(mp["is_dev"]))
 	config.SetSimple(getBool(mp["is_simple"]))

@@ -1,6 +1,12 @@
 package config
 
 import (
+	"fmt"
+	"io/ioutil"
+	"path"
+
+	"github.com/xxjwxc/public/dev"
+	"github.com/xxjwxc/public/mylog"
 	"github.com/xxjwxc/public/tools"
 	"gopkg.in/yaml.v3"
 )
@@ -18,13 +24,7 @@ var Map = Config{
 	CfgBase: CfgBase{
 		IsDev: false,
 	},
-	Database: DBInfo{
-		Host:     "127.0.0.1",
-		Port:     3306,
-		Username: "root",
-		Password: "root",
-		Database: "tianshu",
-	},
+	Database:         map[string]DBInfo{},
 	OutDir:           "./model",
 	URLTag:           "json",
 	Language:         "中 文",
@@ -44,7 +44,8 @@ var Map = Config{
 	TableNames:           "",
 	IsColumnName:         false,
 	IsOutFileByTableName: false,
-	Suffix:               "Model",
+	Suffix:               "",
+	OutFileName:          "model",
 }
 
 var configPath string
@@ -52,48 +53,48 @@ var configPath string
 func init() {
 	Map.SelfTypeDef["datatime"] = "time.Time"
 	Map.SelfTypeDef["time"] = "time.Time"
-	// configPath = path.Join(tools.GetCurrentDirectory(), "config.yml") // 先找本程序文件夹
-	// if !tools.CheckFileIsExist(configPath) {                          // dont find it
-	// 	configPath = path.Join(tools.GetModelPath(), "config.yml")
-	// 	if !tools.CheckFileIsExist(configPath) {
-	// 		mylog.ErrorString("config.yml not exit. using default config")
-	// 	}
-	// }
+	configPath = path.Join(tools.GetCurrentDirectory(), "config.yml") // 先找本程序文件夹
+	if !tools.CheckFileIsExist(configPath) {                          // dont find it
+		configPath = path.Join(tools.GetModelPath(), "config.yml")
+		if !tools.CheckFileIsExist(configPath) {
+			mylog.ErrorString("config.yml not exit. using default config")
+		}
+	}
 
-	// onInit()
-	// dev.OnSetDev(Map.IsDev)
+	onInit()
+	dev.OnSetDev(Map.IsDev)
 }
 
-// func onInit() {
-// 	err := InitFile(configPath)
-// 	if err != nil {
-// 		fmt.Println("Load config file error: ", err.Error())
-// 		return
-// 	}
-// }
+func onInit() {
+	err := InitFile(configPath)
+	if err != nil {
+		fmt.Println("Load config file error: ", err.Error())
+		return
+	}
+}
 
-// // InitFile default value from file .
-// func InitFile(filename string) error {
-// 	// if _, e := os.Stat(filename); e != nil {
-// 	// 	fmt.Println("init default config file: ", filename)
-// 	// 	if err := SaveToFile(); err == nil {
-// 	// 		InitFile(filename)
-// 	// 		return nil
-// 	// 	} else {
-// 	// 		fmt.Println("shit,fail", err)
-// 	// 	}
-// 	// 	// os.Exit(0)
-// 	// }
-// 	bs, err := ioutil.ReadFile(filename)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if err := yaml.Unmarshal(bs, &Map); err != nil {
-// 		fmt.Println("read config file error: ", err.Error())
-// 		return err
-// 	}
-// 	return nil
-// }
+// InitFile default value from file .
+func InitFile(filename string) error {
+	// if _, e := os.Stat(filename); e != nil {
+	// 	fmt.Println("init default config file: ", filename)
+	// 	if err := SaveToFile(); err == nil {
+	// 		InitFile(filename)
+	// 		return nil
+	// 	} else {
+	// 		fmt.Println("shit,fail", err)
+	// 	}
+	// 	// os.Exit(0)
+	// }
+	bs, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+	if err := yaml.Unmarshal(bs, &Map); err != nil {
+		fmt.Println("read config file error: ", err.Error())
+		return err
+	}
+	return nil
+}
 
 // GetServiceConfig Get service configuration information
 // func GetServiceConfig() (name, displayName, desc string) {

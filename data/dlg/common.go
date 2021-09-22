@@ -1,18 +1,7 @@
 package dlg
 
 import (
-	"fmt"
-	"os/exec"
-
 	"github.com/jroimartin/gocui"
-	"github.com/tocurd/gormt/data/view/model"
-	"github.com/tocurd/gormt/data/view/model/genmysql"
-	"github.com/tocurd/gormt/data/view/model/gensqlite"
-
-	"github.com/tocurd/gormt/data/config"
-
-	"github.com/xxjwxc/public/mylog"
-	"github.com/xxjwxc/public/tools"
 )
 
 func division(a int, b float32) int {
@@ -75,38 +64,38 @@ func getBool(bstr string) bool {
 }
 
 func generate(g *gocui.Gui, v *gocui.View) {
-	var modeldb model.IModel
-	switch config.GetDbInfo().Type {
-	case 0:
-		modeldb = genmysql.GetModel()
-	case 1:
-		modeldb = gensqlite.GetModel()
-	}
-	if modeldb == nil {
-		mylog.Error(fmt.Errorf("modeldb not fund : please check db_info.type (0:mysql , 1:sqlite , 2:mssql) "))
-		return
-	}
+	// var modeldb model.IModel
+	// switch config.GetDbInfo().Type {
+	// case 0:
+	// 	modeldb = genmysql.GetModel()
+	// case 1:
+	// 	modeldb = gensqlite.GetModel()
+	// }
+	// if modeldb == nil {
+	// 	mylog.Error(fmt.Errorf("modeldb not fund : please check db_info.type (0:mysql , 1:sqlite , 2:mssql) "))
+	// 	return
+	// }
 
-	pkg := modeldb.GenModel()
-	// just for test
-	// out, _ := json.Marshal(pkg)
-	// tools.WriteFile("test.txt", []string{string(out)}, true)
+	// pkg := modeldb.GenModel()
+	// // just for test
+	// // out, _ := json.Marshal(pkg)
+	// // tools.WriteFile("test.txt", []string{string(out)}, true)
 
-	list, mo := model.Generate(pkg)
+	// list, mo := model.Generate(pkg)
 
-	addlog(g, "\n \033[32;7m 开 始 : begin \033[0m\n")
+	// addlog(g, "\n \033[32;7m 开 始 : begin \033[0m\n")
 
-	for _, v := range list {
-		path := config.GetOutDir() + "/" + v.FileName
-		tools.WriteFile(path, []string{v.FileCtx}, true)
+	// for _, v := range list {
+	// 	path := config.GetOutDir() + "/" + v.FileName
+	// 	tools.WriteFile(path, []string{v.FileCtx}, true)
 
-		addlog(g, " formatting differs from goimport's:")
-		cmd, _ := exec.Command("goimports", "-l", "-w", path).Output()
-		addlog(g, " "+string(cmd))
-	}
+	// 	addlog(g, " formatting differs from goimport's:")
+	// 	cmd, _ := exec.Command("goimports", "-l", "-w", path).Output()
+	// 	addlog(g, " "+string(cmd))
+	// }
 
-	addlog(g, "\033[32;7m 所 有 已 完 成 :  ALL completed!! \033[0m\n")
-	// build item
-	gPkg = mo.GetPackage()
-	buildList(g, v)
+	// addlog(g, "\033[32;7m 所 有 已 完 成 :  ALL completed!! \033[0m\n")
+	// // build item
+	// gPkg = mo.GetPackage()
+	// buildList(g, v)
 }

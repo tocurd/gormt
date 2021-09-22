@@ -2,17 +2,10 @@ package cmd
 
 import (
 	"os"
-	"strings"
-
-	"github.com/xxjwxc/public/mylog"
 
 	"github.com/tocurd/gormt/data/view/gtools"
 
-	"github.com/tocurd/gormt/data/config"
-
 	"github.com/spf13/cobra"
-	"github.com/xxjwxc/public/mycobra"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 var rootCmd = &cobra.Command{
@@ -34,7 +27,7 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
+	// cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringP("host", "H", "", "数据库地址.(注意-H为大写)")
 	rootCmd.MarkFlagRequired("host")
@@ -74,60 +67,60 @@ func init() {
 }
 
 // initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	MergeMysqlDbInfo()
-	validate := validator.New()
-	err := validate.Struct(config.GetDbInfo())
-	if err != nil {
-		mylog.Info("Can't read cmd: using （-h, --help) to get more info")
-		mylog.Error(err)
-		os.Exit(1)
-	} else {
-		mylog.Info("using database info:")
-		mylog.JSON(config.GetDbInfo())
-	}
-}
+// func initConfig() {
+// 	MergeMysqlDbInfo()
+// 	validate := validator.New()
+// 	err := validate.Struct(config.GetDbInfo())
+// 	if err != nil {
+// 		mylog.Info("Can't read cmd: using （-h, --help) to get more info")
+// 		mylog.Error(err)
+// 		os.Exit(1)
+// 	} else {
+// 		mylog.Info("using database info:")
+// 		mylog.JSON(config.GetDbInfo())
+// 	}
+// }
 
-// MergeMysqlDbInfo merge parm
-func MergeMysqlDbInfo() {
-	var tmp = config.GetDbInfo()
-	mycobra.IfReplace(rootCmd, "database", &tmp.Database) // 如果设置了，更新
-	mycobra.IfReplace(rootCmd, "host", &tmp.Host)         // 如果设置了，更新
-	mycobra.IfReplace(rootCmd, "password", &tmp.Password) // 如果设置了，更新
-	mycobra.IfReplace(rootCmd, "port", &tmp.Port)         // 如果设置了，更新
-	mycobra.IfReplace(rootCmd, "user", &tmp.Username)     // 如果设置了，更新
-	config.SetMysqlDbInfo(&tmp)
+// // MergeMysqlDbInfo merge parm
+// func MergeMysqlDbInfo() {
+// 	var tmp = config.GetDbInfo()
+// 	mycobra.IfReplace(rootCmd, "database", &tmp.Database) // 如果设置了，更新
+// 	mycobra.IfReplace(rootCmd, "host", &tmp.Host)         // 如果设置了，更新
+// 	mycobra.IfReplace(rootCmd, "password", &tmp.Password) // 如果设置了，更新
+// 	mycobra.IfReplace(rootCmd, "port", &tmp.Port)         // 如果设置了，更新
+// 	mycobra.IfReplace(rootCmd, "user", &tmp.Username)     // 如果设置了，更新
+// 	config.SetMysqlDbInfo(&tmp)
 
-	url := config.GetURLTag()
-	mycobra.IfReplace(rootCmd, "url", &url) // 如果设置了，更新
-	config.SetURLTag(url)
+// 	url := config.GetURLTag()
+// 	mycobra.IfReplace(rootCmd, "url", &url) // 如果设置了，更新
+// 	config.SetURLTag(url)
 
-	dir := config.GetOutDir()
-	mycobra.IfReplace(rootCmd, "outdir", &dir) // 如果设置了，更新
-	config.SetOutDir(dir)
+// 	dir := config.GetOutDir()
+// 	mycobra.IfReplace(rootCmd, "outdir", &dir) // 如果设置了，更新
+// 	config.SetOutDir(dir)
 
-	fk := config.GetIsForeignKey()
-	mycobra.IfReplace(rootCmd, "foreign", &fk) // 如果设置了，更新
-	config.SetForeignKey(fk)
+// 	fk := config.GetIsForeignKey()
+// 	mycobra.IfReplace(rootCmd, "foreign", &fk) // 如果设置了，更新
+// 	config.SetForeignKey(fk)
 
-	funcKey := config.GetIsOutFunc()
-	mycobra.IfReplace(rootCmd, "fun", &funcKey) // 如果设置了，更新
-	config.SetIsOutFunc(funcKey)
+// 	funcKey := config.GetIsOutFunc()
+// 	mycobra.IfReplace(rootCmd, "fun", &funcKey) // 如果设置了，更新
+// 	config.SetIsOutFunc(funcKey)
 
-	ig := config.GetIsGUI()
-	mycobra.IfReplace(rootCmd, "gui", &ig) // 如果设置了，更新
-	config.SetIsGUI(ig)
+// 	ig := config.GetIsGUI()
+// 	mycobra.IfReplace(rootCmd, "gui", &ig) // 如果设置了，更新
+// 	config.SetIsGUI(ig)
 
-	tablePrefix := config.GetTablePrefix()
-	mycobra.IfReplace(rootCmd, "table_prefix", &tablePrefix) // 如果设置了，更新
-	config.SetTablePrefix(tablePrefix)
+// 	tablePrefix := config.GetTablePrefix()
+// 	mycobra.IfReplace(rootCmd, "table_prefix", &tablePrefix) // 如果设置了，更新
+// 	config.SetTablePrefix(tablePrefix)
 
-	//update tableNames. 更新tableNames
-	tableNames := config.GetTableNames()
-	if tableNames != "" {
-		tableNames = strings.Replace(tableNames, "'", "", -1)
-	}
-	mycobra.IfReplace(rootCmd, "table_names", &tableNames) // 如果设置了，更新
-	config.SetTableNames(tableNames)
+// 	//update tableNames. 更新tableNames
+// 	tableNames := config.GetTableNames()
+// 	if tableNames != "" {
+// 		tableNames = strings.Replace(tableNames, "'", "", -1)
+// 	}
+// 	mycobra.IfReplace(rootCmd, "table_names", &tableNames) // 如果设置了，更新
+// 	config.SetTableNames(tableNames)
 
-}
+// }
